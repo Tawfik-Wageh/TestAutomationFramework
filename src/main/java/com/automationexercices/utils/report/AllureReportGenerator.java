@@ -5,7 +5,6 @@ import com.automationexercices.utils.TerminalUtils;
 import com.automationexercices.utils.TimeManager;
 import com.automationexercices.utils.logs.LogsManager;
 import org.apache.commons.io.FileUtils;
-import org.testng.util.TimeUtils;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

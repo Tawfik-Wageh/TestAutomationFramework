@@ -9,10 +9,6 @@ import org.openqa.selenium.By;
 
 public class NavigationBarComponent {
     private final GUIDriver driver;
-    public NavigationBarComponent(GUIDriver driver) {
-        this.driver = driver;
-    }
-
     //locators
     private final By homeButton = By.xpath("//a[.=' Home']");
     private final By productsButton = By.cssSelector("a[href='/products']");
@@ -26,78 +22,80 @@ public class NavigationBarComponent {
     private final By contactUsButton = By.xpath("//a[.=' Contact us']");
     private final By homePageLabel = By.cssSelector("h1 > span");
     private final By userLabel = By.tagName("b");
+    public NavigationBarComponent(GUIDriver driver) {
+        this.driver = driver;
+    }
 
     //actions
     @Step("Navigate to Home Page")
-    public NavigationBarComponent navigate()
-    {
+    public NavigationBarComponent navigate() {
         driver.browser().navigateTo(PropertyReader.getProperty("baseUrlWeb"));
         return this;
     }
+
     @Step("Click on Home Button")
-    public NavigationBarComponent clickOnHomeButton ()
-    {
+    public NavigationBarComponent clickOnHomeButton() {
         driver.element().click(homeButton);
         return this;
     }
+
     @Step("Click on Products Button")
-    public ProductsPage clickOnProductsButton()
-    {
+    public ProductsPage clickOnProductsButton() {
         driver.element().click(productsButton);
         return new ProductsPage(driver);
     }
+
     @Step("Click on Cart Button")
-    public CartPage clickOnCartButton()
-    {
+    public CartPage clickOnCartButton() {
         driver.element().click(cartButton);
         return new CartPage(driver);
     }
+
     @Step("Click on Logout Button")
-    public LogoutPage clickOnLogoutButton()
-    {
+    public LogoutPage clickOnLogoutButton() {
         driver.element().click(logoutButton);
         return new LogoutPage(driver);
     }
+
     @Step("Click on Signup/Login Button")
-    public SignupLoginPage clickOnSignupLoginButton()
-    {
+    public SignupLoginPage clickOnSignupLoginButton() {
         driver.element().click(signupLoginButton);
         return new SignupLoginPage(driver);
     }
+
     @Step("Click on Test Cases Button")
-    public TestCasesPage clickOnTestCasesButton()
-    {
+    public TestCasesPage clickOnTestCasesButton() {
         driver.element().click(testCasesButton);
         return new TestCasesPage(driver);
     }
+
     @Step("Click on Delete Account Button")
-    public DeleteAccountPage clickOnDeleteAccountButton()
-    {
+    public DeleteAccountPage clickOnDeleteAccountButton() {
         driver.element().click(deleteAccountButton);
         return new DeleteAccountPage(driver);
     }
+
     @Step("Click on ContactUs Button Button")
-    public ContactUsPage clickOnContactUsButton()
-    {
+    public ContactUsPage clickOnContactUsButton() {
         driver.element().click(contactUsButton);
         return new ContactUsPage(driver);
     }
 
     //validations
     @Step("Verify Home Page Label")
-    public  NavigationBarComponent verifyHomePage()
-    {
+    public NavigationBarComponent verifyHomePage() {
         driver.verification().isElementVisible(homePageLabel);
         return this;
     }
+
     @Step("Verify User Label")
-    public NavigationBarComponent verifyUserLabel (String expectedName)
-    {
+    public NavigationBarComponent verifyUserLabel(String expectedName) {
         String actualName = driver.element().getText(userLabel);
         LogsManager.info("Verifying user label: " + actualName);
-        driver.verification().Equals(actualName,expectedName, "User label does not match. Expected: " + expectedName + ", Actual: " + actualName);
+        driver.verification().Equals(actualName, expectedName, "User label does not match. Expected: " + expectedName + ", Actual: " + actualName);
         return this;
 
     }
 
 }
+

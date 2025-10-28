@@ -64,6 +64,7 @@ public class ElementActions {
         );
         return this;
     }
+
     //hovering
     public ElementActions hover(By locator) {
         waitManager.fluentWait().until(d ->
@@ -100,9 +101,8 @@ public class ElementActions {
     }
 
     //upload file
-    public ElementActions uploadFile(By locator,String filePath)
-    {
-        String fileAbsolute = System.getProperty("user.dir") + File.separator  + filePath ;
+    public ElementActions uploadFile(By locator, String filePath) {
+        String fileAbsolute = System.getProperty("user.dir") + File.separator + filePath;
         waitManager.fluentWait().until(d ->
                 {
                     try {

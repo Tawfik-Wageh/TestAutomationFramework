@@ -1,12 +1,9 @@
 package com.automationexercices.tests.api;
 
 import com.automationexercices.apis.UserManagementAPI;
-import com.automationexercices.drivers.GUIDriver;
-import com.automationexercices.pages.components.NavigationBarComponent;
 import com.automationexercices.tests.BaseTest;
 import com.automationexercices.utils.TimeManager;
 import com.automationexercices.utils.dataReader.JsonReader;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -36,6 +33,7 @@ public class RegisterTestAPI extends BaseTest {
                 )
                 .verifyUserCreatedSuccessfully();
     }
+
     //Configurations
     @BeforeClass
     protected void setUp() {

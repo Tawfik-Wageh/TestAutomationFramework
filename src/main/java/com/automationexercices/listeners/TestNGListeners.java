@@ -21,6 +21,7 @@ public class TestNGListeners implements ISuiteListener, IExecutionListener, IInv
     public void onStart(ISuite suite) {
         suite.getXmlSuite().setName("Automation Exercise");
     }
+
     public void onExecutionStart() {
         LogsManager.info("Test Execution started");
         cleanTestOutputDirectories();
@@ -44,8 +45,7 @@ public class TestNGListeners implements ISuiteListener, IExecutionListener, IInv
 
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
         if (method.isTestMethod()) {
-            if (testResult.getInstance() instanceof UITest)
-            {
+            if (testResult.getInstance() instanceof UITest) {
                 ScreenRecordManager.startRecording();
             }
             LogsManager.info("Test Case " + testResult.getName() + " started");
@@ -54,17 +54,18 @@ public class TestNGListeners implements ISuiteListener, IExecutionListener, IInv
 
     public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
         WebDriver driver = null;
-        if (method.isTestMethod())
-        {
-            if (testResult.getInstance() instanceof UITest)
-            {
+        if (method.isTestMethod()) {
+            if (testResult.getInstance() instanceof UITest) {
                 ScreenRecordManager.stopRecording(testResult.getName());
                 if (testResult.getInstance() instanceof WebDriverProvider provider)
                     driver = provider.getWebDriver(); //initialize driver from WebDriverProvider
-                switch (testResult.getStatus()){
-                    case ITestResult.SUCCESS -> ScreenshotsManager.takeFullPageScreenshot(driver,"passed-" + testResult.getName());
-                    case ITestResult.FAILURE -> ScreenshotsManager.takeFullPageScreenshot(driver,"failed-" + testResult.getName());
-                    case ITestResult.SKIP -> ScreenshotsManager.takeFullPageScreenshot(driver,"skipped-" + testResult.getName());
+                switch (testResult.getStatus()) {
+                    case ITestResult.SUCCESS ->
+                            ScreenshotsManager.takeFullPageScreenshot(driver, "passed-" + testResult.getName());
+                    case ITestResult.FAILURE ->
+                            ScreenshotsManager.takeFullPageScreenshot(driver, "failed-" + testResult.getName());
+                    case ITestResult.SKIP ->
+                            ScreenshotsManager.takeFullPageScreenshot(driver, "skipped-" + testResult.getName());
                 }
                 AllureAttachmentManager.attachRecords(testResult.getName());
             }
@@ -97,7 +98,7 @@ public class TestNGListeners implements ISuiteListener, IExecutionListener, IInv
         FileUtils.cleanDirectory(new File(ScreenshotsManager.SCREENSHOTS_PATH));
         FileUtils.cleanDirectory(new File(ScreenRecordManager.RECORDINGS_PATH));
         FileUtils.cleanDirectory(new File("src/test/resources/downloads/"));
-        FileUtils.forceDelete(new File(LogsManager.LOGS_PATH +"logs.log"));
+        FileUtils.forceDelete(new File(LogsManager.LOGS_PATH + "logs.log"));
     }
 
     private void createTestOutputDirectories() {
@@ -108,3 +109,4 @@ public class TestNGListeners implements ISuiteListener, IExecutionListener, IInv
 
     }
 }
+

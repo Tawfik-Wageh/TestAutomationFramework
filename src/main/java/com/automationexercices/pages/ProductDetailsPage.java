@@ -8,13 +8,6 @@ import org.openqa.selenium.By;
 
 public class ProductDetailsPage {
     private final GUIDriver driver;
-
-    public ProductDetailsPage(GUIDriver driver) {
-        this.driver = driver;
-    }
-
-    //vars
-    private String productDetailsEndpoint = "/product-details/2";
     //locators
     private final By productName = By.cssSelector(".product-information > h2");
     private final By productPrice = By.cssSelector(".product-information > span > span");
@@ -23,6 +16,11 @@ public class ProductDetailsPage {
     private final By reviewTextArea = By.id("review");
     private final By reviewButton = By.id("button-review");
     private final By reviewMsg = By.cssSelector("#review-section span");
+    //vars
+    private String productDetailsEndpoint = "/product-details/2";
+    public ProductDetailsPage(GUIDriver driver) {
+        this.driver = driver;
+    }
 
     //actions
     public ProductDetailsPage navigate() {

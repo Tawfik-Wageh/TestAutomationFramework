@@ -1,20 +1,10 @@
 package com.automationexercices.pages;
 
-import com.automationexercices.FileUtils;
 import com.automationexercices.drivers.GUIDriver;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 public class PaymentPage {
-    private GUIDriver driver;
-
-    public PaymentPage(GUIDriver driver) {
-        this.driver = driver;
-    }
-
-    //vars
-    private String paymentEndpoint = "/payment";
-
     //locators
     private final By nameOnCard = By.name("name_on_card");
     private final By cardNumber = By.name("card_number");
@@ -24,6 +14,12 @@ public class PaymentPage {
     private final By payButton = By.id("submit");
     private final By paymentSuccessMessage = By.cssSelector("h2 > b");
     private final By downloadInvoiceButton = By.xpath("//a[.='Download Invoice']");
+    private GUIDriver driver;
+    //vars
+    private String paymentEndpoint = "/payment";
+    public PaymentPage(GUIDriver driver) {
+        this.driver = driver;
+    }
 
     //actions
     @Step("Fill card info")

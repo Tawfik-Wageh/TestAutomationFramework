@@ -45,6 +45,7 @@ public class ScreenRecordManager {
 
         }
     }
+
     /**
      * Stops screen recording and returns the video as an InputStream.
      */
@@ -106,3 +107,4 @@ public class ScreenRecordManager {
         return targetFile;
     }
 }
+

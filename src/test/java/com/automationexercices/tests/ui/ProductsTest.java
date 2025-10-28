@@ -5,7 +5,6 @@ import com.automationexercices.drivers.UITest;
 import com.automationexercices.pages.ProductsPage;
 import com.automationexercices.pages.components.NavigationBarComponent;
 import com.automationexercices.tests.BaseTest;
-import com.automationexercices.utils.TimeManager;
 import com.automationexercices.utils.dataReader.JsonReader;
 import io.qameta.allure.*;
 import org.testng.annotations.AfterMethod;
@@ -51,6 +50,7 @@ public class ProductsTest extends BaseTest {
     protected void preCondition() {
         testData = new JsonReader("products-data");
     }
+
     @BeforeMethod
     public void setUp() {
         driver = new GUIDriver();

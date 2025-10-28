@@ -7,7 +7,6 @@ import org.jsoup.Jsoup;
 
 import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
 import java.nio.file.Files;
@@ -17,23 +16,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class AllureBinaryManager {
-
-    private static  class LazyHolder
-    {
-        static final String VERSION = resolveVersion(); //2.34.1
-
-        private static String resolveVersion() {
-            try {
-                String url = Jsoup.connect("https://github.com/allure-framework/allure2/releases/latest")
-                        .followRedirects(true).execute().url().toString();
-                return url.split("/tag/")[1];
-            }
-            catch (Exception e) {
-                throw new IllegalStateException("Unable to resolve Allure version", e);
-            }
-
-        }
-    }
 
     public static void downloadAndExtract() {
         try {
@@ -66,6 +48,7 @@ public class AllureBinaryManager {
             LogsManager.error("Error downloading or extracting binaries", e.getMessage());
         }
     }
+
     public static Path getExecutable() {
         String version = LazyHolder.VERSION;
         //C:\Users\hussi\.m2\repository\allure\allure-2.34.1\bin
@@ -76,7 +59,7 @@ public class AllureBinaryManager {
     }
 
     // download ZIP file for Allure
-    private static Path downloadZip(String version)   {
+    private static Path downloadZip(String version) {
         try {
             //https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.34.1/allure-commandline-2.34.1.zip
             String url = AllureConstants.ALLURE_ZIP_BASE_URL + version + "/allure-commandline-" + version + ".zip";
@@ -101,7 +84,7 @@ public class AllureBinaryManager {
     }
 
     //Extract ZIP file for Allure
-    private static void extractZip(Path zipPath)   {
+    private static void extractZip(Path zipPath) {
         try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipPath))) {
             ZipEntry entry;
             while ((entry = zipInputStream.getNextEntry()) != null) {
@@ -115,6 +98,21 @@ public class AllureBinaryManager {
             }
         } catch (Exception e) {
             LogsManager.error("Error extracting Allure zip file", e.getMessage());
+        }
+    }
+
+    private static class LazyHolder {
+        static final String VERSION = resolveVersion(); //2.34.1
+
+        private static String resolveVersion() {
+            try {
+                String url = Jsoup.connect("https://github.com/allure-framework/allure2/releases/latest")
+                        .followRedirects(true).execute().url().toString();
+                return url.split("/tag/")[1];
+            } catch (Exception e) {
+                throw new IllegalStateException("Unable to resolve Allure version", e);
+            }
+
         }
     }
 }
